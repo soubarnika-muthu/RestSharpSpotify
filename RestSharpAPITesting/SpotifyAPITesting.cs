@@ -66,9 +66,34 @@ namespace RestSharpAPITesting
             
             System.Diagnostics.Debug.WriteLine("userId:" + playlistId);
 
-
         }
-        
+
+        [Priority(3)]
+        [TestMethod]
+        //Method to create playlist
+        public void PostCreatePlaylist()
+        {
+            string postUrl = "https://api.spotify.com/v1/users/" + userId + "/playlists";
+
+
+            string JsonData = "{" +
+                            "\"name\": \"Soubarnika Playlist\"," +
+                            "\"description\": \"New playlist description\"," +
+                            "\"public\":\" false\"" +
+                          "}";
+            IRestRequest restRequest = Utility.RestRequestutility(postUrl);
+
+            restRequest.AddJsonBody(JsonData);
+            restResponse = restclient.Post(restRequest);
+
+            Assert.AreEqual(201, (int)restResponse.StatusCode);
+            Utility.Responsemessage(restResponse);
+            //deseraialization object 
+            var output = JsonConvert.DeserializeObject<dynamic>(restResponse.Content);
+            playlistId = output["id"];
+            System.Diagnostics.Debug.WriteLine("PlaylistId:" + playlistId);
+        }
+
 
     }
 }
