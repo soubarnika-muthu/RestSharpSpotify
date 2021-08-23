@@ -94,6 +94,32 @@ namespace RestSharpAPITesting
             System.Diagnostics.Debug.WriteLine("PlaylistId:" + playlistId);
         }
 
+        //Method to update playlist
+        [Priority(4)]
+        [TestMethod]
+        public void U_pdatePLaylist()
+        {
+            //Url for PUT method
+            string putUrl = "https://api.spotify.com/v1/playlists/" + playlistId + "/";
+            //Json Body
+            string JsonData = "{" +
+                              "\"name\": \" Playlist soubarnika\"," +
+                              "\"description\": \"New playlist description\"," +
+                              "\"public\": false" +
+                            "}";
+            //Interfaces 
+            IRestClient restClient = new RestClient();
+            IRestRequest restRequest = new RestRequest(putUrl);
+
+            restRequest.AddHeader("Authorization", "token" + myToken);
+            restRequest.AddJsonBody(JsonData);
+            restResponse = restClient.Put(restRequest);
+            //Assertion statement
+            Assert.AreEqual(200, (int)restResponse.StatusCode);
+            Utility.Responsemessage(restResponse);
+
+        }
+
 
     }
 }
