@@ -120,6 +120,20 @@ namespace RestSharpAPITesting
 
         }
 
+        //Method to delete playlist
+        [TestMethod]
+        public void XDeletePlaylist()
+        {
+            string DelUrl = "https://api.spotify.com/v1/playlists/" + playlistId + "/";
+
+            IRestRequest restRequest = Utility.RestRequestutility(DelUrl);
+            restResponse = restclient.Delete(restRequest);
+            Assert.AreEqual(HttpStatusCode.OK, restResponse.StatusCode);
+
+            Utility.Responsemessage(restResponse);
+        }
+
+
 
     }
 }
