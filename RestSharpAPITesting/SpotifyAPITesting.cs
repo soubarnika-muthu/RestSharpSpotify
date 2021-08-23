@@ -50,7 +50,7 @@ namespace RestSharpAPITesting
         //Method to get user profile
         public void UserProfileUsingRestSharp()
         {
-            //GetCurrentUserUsingRestSharp();
+           //GetUrlfor geeting user profile
             string getuserurl = "https://api.spotify.com/v1/users/" + userId + "/";
 
             IRestRequest restRequest = Utility.RestRequestutility(getuserurl);
